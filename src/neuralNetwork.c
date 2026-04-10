@@ -10,16 +10,16 @@
 
 // ################################### PRIVATE FUNCTIONS DECLARATIONS ################################
 
-static void initLayer(DenseLayer *layer, int inputs, int neurons);
+static void initLayer(Layer *layer, int inputs, int neurons);
 
-static void allocateLayer(DenseLayer *layer, int inputs, int neurons);
+static void allocateLayer(Layer *layer, int inputs, int neurons);
 
-static void initializeLayerRandom(DenseLayer *layer);
+static void initializeLayerRandom(Layer *layer);
 
 // Function to generate a number with normal distribution (Box-Muller approximation)
 static double nextGaussian();
 
-static void freeLayer(DenseLayer *layer);
+static void freeLayer(Layer *layer);
 
 // ###################################################################################################
 
@@ -27,10 +27,10 @@ static void freeLayer(DenseLayer *layer);
 
 // This function uses the "rand()" method. For this function to work properly, the caller must first call
 // the "srand" method.
-DenseNeuralNetwork *createDenseNeuralNetwork(int numberLayers, ...) {
-    DenseNeuralNetwork *nn = xmalloc(sizeof(DenseNeuralNetwork));
+NeuralNetwork *createNeuralNetwork(int numberLayers, ...) {
+    NeuralNetwork *nn = xmalloc(sizeof(NeuralNetwork));
     nn->numberLayers = numberLayers;
-    nn->layers = xmalloc(numberLayers * sizeof(DenseLayer));
+    nn->layers = xmalloc(numberLayers * sizeof(Layer));
     // TODO
     // nn->learningRate = ;
 
@@ -47,7 +47,10 @@ DenseNeuralNetwork *createDenseNeuralNetwork(int numberLayers, ...) {
     return nn;
 }
 
-void freeDenseNeuralNetwork(DenseNeuralNetwork **nn) {
+void train(NeuralNetwork *nn, DatasetData *datasetData, NeuralNetworkParameters *parameters) {
+}
+
+void freeNeuralNetwork(NeuralNetwork **nn) {
     if (nn == NULL || *nn == NULL) return;
 
     for(int i = 0; i < (*nn)->numberLayers; i++) {
@@ -62,12 +65,12 @@ void freeDenseNeuralNetwork(DenseNeuralNetwork **nn) {
 // ###################################################################################################
 
 // ################################### PRIVATE FUNCTIONS IMPLEMENTATIONS  ############################
-static void initLayer(DenseLayer *layer, int inputs, int neurons) {
+static void initLayer(Layer *layer, int inputs, int neurons) {
    allocateLayer(layer, inputs, neurons);
    initializeLayerRandom(layer);
 }
 
-static void allocateLayer(DenseLayer *layer, int inputs, int neurons) {    
+static void allocateLayer(Layer *layer, int inputs, int neurons) {    
     layer->inputSize = inputs;
     layer->layerSize = neurons;
 
@@ -88,7 +91,7 @@ static void allocateLayer(DenseLayer *layer, int inputs, int neurons) {
     layer->deltas      = xmalloc(neurons * sizeof(double));
 }
 
-static void initializeLayerRandom(DenseLayer *layer) {
+static void initializeLayerRandom(Layer *layer) {
    if (layer->inputSize == -1) return;
    
    for(int i = 0; i < layer->layerSize; i++) {
@@ -114,7 +117,7 @@ static double nextGaussian() {
     return sqrt(-2.0 * log(u1)) * cos(2.0 * M_PI * u2);
 }
 
-static void freeLayer(DenseLayer *layer) {
+static void freeLayer(Layer *layer) {
     free(layer->weights);
     free(layer->biases);
     free(layer->activations);

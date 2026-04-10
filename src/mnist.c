@@ -3,6 +3,7 @@
 #include <stdint.h>
 #include <math.h>
 #include "mnist.h"
+#include "datasetOperation.h"
 #include "utils.h"
 
 // ################################### PRIVATE FUNCTIONS ##########################################
@@ -65,6 +66,28 @@ static void normalizeImage(Sample *sample) {
         sample->normalizedImage[i] = (sample->originalImage[i] - media) / std;
     }
 }
+
+// ###############################################################################################
+
+// ####################################### DatasetOperation #######################################################
+    static double* getNormalizedImage(void *sample) {
+	return ((Sample*)sample)->normalizedImage;
+    }
+
+    static int* getLabel(void *sample) {
+	return ((Sample*)sample)->label;
+    }
+
+    static void* getNextSample(void *sample) {
+	return ((Sample*)sample)->next;
+    }
+
+    const DatasetOperation datasetOperation = {
+    	.getNormalizedData = getNormalizedImage,
+	.getLabel = getLabel,
+	.getNextSample = getNextSample
+    };
+// ###############################################################################################
 
 // ###############################################################################################
 

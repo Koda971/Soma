@@ -3,6 +3,10 @@
 #include <time.h>
 #include "mnist.h"
 #include "neuralNetwork.h"
+#include "utils.h"
+
+// This variable is created in "mnist.c" file
+extern const DatasetOperation datasetOperation;
 
 int main() {
     Sample *trainData = loadSamples("resources/data/train-images.idx3-ubyte",
@@ -15,14 +19,29 @@ int main() {
 
     srand(time(NULL));
 
-    DenseNeuralNetwork *nn = createDenseNeuralNetwork(3, 784, 30, 10);
+    printf("build nn start = [784, 30, 10]\n");
+    NeuralNetwork *nn = createNeuralNetwork(3, 784, 30, 10);
+    printf("build nn end\n");
 
-    printSamples(trainData);
+    DatasetData datasetData; 
+    datasetData.trainData = trainData;
+    datasetData.testData = testData;
+    datasetData.datasetOperation = datasetOperation;
+
+    NeuralNetworkParameters nnParameters;
+    nnParameters.numEpochs = 1;
+    nnParameters.miniBatchLength = 1;
+    nnParameters.learningRate = 1;
+
+    train(nn, &datasetData, &nnParameters);
+
+    //printSamples(trainData);
     
     freeSamples(&trainData);
     freeSamples(&testData);
 
-    freeDenseNeuralNetwork(&nn);
+    freeNeuralNetwork(&nn);
 
     return 0;
 }
+
