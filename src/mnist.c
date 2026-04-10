@@ -84,8 +84,8 @@ static void normalizeImage(Sample *sample) {
 
     const DatasetOperation datasetOperation = {
     	.getNormalizedData = getNormalizedImage,
-	.getLabel = getLabel,
-	.getNextSample = getNextSample
+	    .getLabel = getLabel,
+	    .getNextSample = getNextSample
     };
 // ###############################################################################################
 
