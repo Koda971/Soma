@@ -9,7 +9,8 @@ static DatasetData buildDatasetData(Sample *trainData, Sample *testData);
 
 static NeuralNetworkParameters buildNeuralNetworkParameters(int numEpochs, int miniBatchLenght, double learningRate);
  
-int main() { Sample *trainData = loadSamples("resources/data/train-images.idx3-ubyte",
+int main() {
+    Sample *trainData = loadSamples("resources/data/train-images.idx3-ubyte",
             "resources/data/train-labels.idx1-ubyte");
     Sample *testData =  loadSamples("resources/data/t10k-images.idx3-ubyte",
             "resources/data/t10k-labels.idx1-ubyte");
