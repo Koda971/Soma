@@ -1,0 +1,9 @@
+
+# Ignora i file generati dalla compilazione
+build/
+bin/
+
+# Opzionale: Ignora anche file di log o temporanei spesso presenti in queste cartelle
+*.log
+*.tmp
+
