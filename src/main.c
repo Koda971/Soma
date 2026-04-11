@@ -5,9 +5,6 @@
 #include "neuralNetwork.h"
 #include "utils.h"
 
-// This variable is created in "mnist.c" file
-extern const DatasetOperation datasetOperation;
-
 int main() {
     Sample *trainData = loadSamples("resources/data/train-images.idx3-ubyte",
             "resources/data/train-labels.idx1-ubyte");
