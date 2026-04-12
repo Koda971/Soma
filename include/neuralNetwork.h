@@ -26,7 +26,6 @@ typedef struct {
 typedef struct {
     void *trainData;
     void *testData;
-    DatasetOperation datasetOperation;
 } DatasetData;
 
 typedef struct {

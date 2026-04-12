@@ -48,6 +48,9 @@ NeuralNetwork *createNeuralNetwork(int numberLayers, ...) {
 }
 
 void train(NeuralNetwork *nn, DatasetData *datasetData, NeuralNetworkParameters *parameters) {
+    for (int i = 0; i < 10; i++) {
+        printf("%d", datasetOperation.getLabel(datasetData->trainData)[i]);
+    }
 }
 
 void freeNeuralNetwork(NeuralNetwork **nn) {

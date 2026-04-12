@@ -41,7 +41,6 @@ static DatasetData buildDatasetData(Sample *trainData, Sample *testData) {
     DatasetData datasetData; 
     datasetData.trainData = trainData;
     datasetData.testData = testData;
-    datasetData.datasetOperation = datasetOperation;
 
     return datasetData;
 }
