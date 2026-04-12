@@ -14,7 +14,7 @@ void* getNextSample(void *sample) {
 }
 
 const DatasetOperation datasetOperation = {
-    .getNormalizedData = getNormalizedImage,
+    .getData = getNormalizedImage,
 	.getLabel = getLabel,
 	.getNextSample = getNextSample
 };

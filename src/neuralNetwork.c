@@ -8,6 +8,16 @@
 #define M_PI 3.14159265358979323846
 #endif
 
+// ############################################# PRIVATE STRUCT ########################################################
+
+typedef struct {
+    void **samples; // Array of pointers
+    int numSamples;
+    DatasetOperation *datasetOperation;
+} DataLoader;
+
+// #####################################################################################################################
+
 // ################################### PRIVATE FUNCTIONS DECLARATIONS ################################
 
 static void initLayer(Layer *layer, int inputs, int neurons);
@@ -20,6 +30,13 @@ static void initializeLayerRandom(Layer *layer);
 static double nextGaussian();
 
 static void freeLayer(Layer *layer);
+
+// Initializes the data loader by creating an array of pointers to the samples. This enables efficient shuffling by
+// manipulating pointers rather than moving the actual data in memory
+static DataLoader *createDataLoader(void *head, int numSamples, DatasetOperation *datasetOperation);
+
+// To shuffle unbiased, we use the Fisher-Yates algorithm
+static void shuffleDataLoader(DataLoader *loader);
 
 // ###################################################################################################
 
@@ -48,8 +65,8 @@ NeuralNetwork *createNeuralNetwork(int numberLayers, ...) {
 }
 
 void train(NeuralNetwork *nn, DatasetData *datasetData, NeuralNetworkParameters *parameters) {
-    for (int i = 0; i < 10; i++) {
-        printf("%d", datasetOperation.getLabel(datasetData->trainData)[i]);
+    for (int epoch = 0; epoch < parameters->numEpochs; epoch++) {
+        
     }
 }
 
@@ -126,6 +143,31 @@ static void freeLayer(Layer *layer) {
     free(layer->activations);
     free(layer->zValues);
     free(layer->deltas);
+}
+
+static DataLoader *createDataLoader(void *head, int numSamples, DatasetOperation *datasetOperation) {
+    DataLoader *loader = xmalloc(sizeof(DataLoader));
+    loader->samples = xmalloc(sizeof(void*) * numSamples);
+    loader->numSamples = numSamples;
+    loader->datasetOperation = datasetOperation;
+
+    void *current = head;
+    for (int i = 0; i < numSamples && current != NULL; i++) {
+        loader->samples[i] = current;
+        current = datasetOperation->getNextSample(current);
+    }
+
+    return loader;
+}
+
+static void shuffleDataLoader(DataLoader *loader) {
+    for (int i = loader->numSamples - 1; i > 0; i--) {
+        int j = rand() % (i + 1);
+        // We only swap pointers (4 or 8 bytes), not entire structures!
+        void *temp = loader->samples[i];
+        loader->samples[i] = loader->samples[j];
+        loader->samples[j] = temp;
+    }
 }
 
 // ###################################################################################################
