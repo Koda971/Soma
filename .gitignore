@@ -3,6 +3,9 @@
 build/
 bin/
 
+# Ignora i dati
+resources/
+
 # Opzionale: Ignora anche file di log o temporanei spesso presenti in queste cartelle
 *.log
 *.tmp
