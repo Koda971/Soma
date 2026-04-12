@@ -1,33 +1,21 @@
+# Soma
 
-La Struttura Ideale del Progetto
-Immaginiamo questa gerarchia di cartelle:
+Un'implementazione da zero di una Rete Neurale Artificiale (ANN) scritta interamente in C puro, senza l'ausilio di librerie di machine learning esterne. Il progetto esplora i fondamenti del Deep Learning, implementando manualmente l'architettura Multi-Layer Perceptron (MLP), l'algoritmo di backpropagation e la discesa del gradiente per l'ottimizzazione dei pesi.
 
-src/: i file .c
+## ✨ Caratteristiche
+* 🚀 **Performance:** Scritto in C puro per la massima velocità.
+* 🛠️ **Modularità:** Separazione netta tra logica di interfaccia (`.h`) e implementazione (`.c`).
+* 📦 **Facile da integrare:** Include un Makefile pronto all'uso.
 
-include/: i file .h
+## 📋 Prerequisiti
+Prima di iniziare, assicurati di avere installato:
+* **GCC**
+* **Make**
 
-build/: i file oggetto .o (per non sporcare i sorgenti)
+## ⚙️ Installazione e Compilazione
+Clona il repository e compila il progetto:
 
-bin/: l'eseguibile finale
-
-
-
-Perché questo Makefile è "Best Practice"?
-Variabili (CC, CFLAGS): Se domani decidi di usare clang invece di gcc, devi cambiare solo una riga.
-
-Funzioni (wildcard, patsubst): Non devi elencare ogni file .c a mano. Se aggiungi player.c nella cartella src, il Makefile lo troverà da solo.
-
-Target "Phony": .PHONY impedisce a make di confondersi nel caso esistesse davvero un file chiamato "clean" o "all" nella tua cartella.
-
-Automatic Variables ($<, $@): * $@: Rappresenta il nome del target (quello a sinistra di :).
-
-$<: Rappresenta la prima dipendenza (il file sorgente).
-
-Order-only dependencies (|): La sintassi | build dice a Make: "Crea la cartella se non c'è, ma non ricompilare tutto ogni volta che la data della cartella cambia".
-
-Come usarlo
-Salva il codice sopra in un file chiamato esattamente Makefile.
-
-Apri il terminale e digita make.
-
-Per ricominciare da zero, digita make clean.
+```bash
+git clone [https://github.com/Koda971/Soma.git](https://github.com/Koda971/Soma.git)
+cd Soma
+make
