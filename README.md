@@ -16,6 +16,6 @@ Prima di iniziare, assicurati di avere installato:
 Clona il repository e compila il progetto:
 
 ```bash
-git clone [https://github.com/Koda971/Soma.git](https://github.com/Koda971/Soma.git)
+git clone https://github.com/Koda971/Soma.git
 cd Soma
 make
