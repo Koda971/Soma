@@ -19,3 +19,15 @@ Clona il repository e compila il progetto:
 git clone https://github.com/Koda971/Soma.git
 cd Soma
 make
+```
+
+## 📂 Struttura del Progetto
+La disposizione dei file segue gli standard dei progetti in C per mantenere separati i sorgenti, le intestazioni e i dati:
+
+```text
+.
+├── src/        # File sorgente (.c) - Contiene la logica e l'implementazione
+├── include/    # File header (.h) - Definizioni delle strutture e prototipi
+├── resources/  # Dataset - File di input per il training
+├── bin/        # Eseguibile finale - File compilati pronti all'uso
+└── Makefile    # Script per l'automazione della compilazione
