@@ -28,7 +28,7 @@ int main() {
     train(nn, &datasetData, &nnParameters);
 
     //printSamples(trainData);
-    
+//    
     freeSamples(&trainData);
     freeSamples(&testData);
 
